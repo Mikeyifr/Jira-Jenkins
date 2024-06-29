@@ -3,8 +3,8 @@
 ### Setting up:
 1. Run "docker compose up -d" on your terminal to run the docker-compose.
 2. Connect to the containers on your browser:
-    http://localhost:8081 for the Jenkins container
-    http://localhost:8082 for the Jira container
+    - http://localhost:8081 for the Jenkins container
+    - http://localhost:8082 for the Jira container
 
 
 ### Jira setup: *every point is a different page by order*
@@ -38,8 +38,12 @@
 8.	Write Jira as the name and http://jira:8080 as the URL.
 9.	Choose Credentials as the login type, and select the credenitals you entered earlier.
 10.	 Press on "Test Connection" and verify it returns "Success".
+<div align="center"><img src="/images/site.png" alt="site" width="780" height="398"></div>
+
 11.	 Scroll up and find the "Global properties" and check the “Environment variables” box and press add.
 12.	 Fill out "JIRA_SITE" as the name and the site name you chose earlier, in this case Jira, as the value.
+<div align="center"><img src="/images/var.png" alt="var" width="785" height="162"></div>
+
 13.	 Press save and you’re Done!
 
 
@@ -48,8 +52,19 @@
 2.	Create an issue in the project.
 3.	Check the Transition ID for the transition between To do and Done.
 4.	Create a Jenkins pipeline and call it by the issue key:
-5.	Copy the contents of the Jenkinsfile file and add the TransitionID.
+<div align="center"><img src="/images/1.png" alt="site" width="230" height="73"><img src="/images/2.png" alt="site" width="242" height="73"></div>
+
+5.	Copy the contents of the Jenkinsfile file and change the id to your project's TransitionID.
 6.	Press save, and then press on Build Now.
-7.	Check that the build was successful.
+7.	Check that the build was successful, if so, continue to the next step.
 8.	Refresh the Jira page and confirm the issue switched to "Done".
 
+
+
+## Research and Preparation:
+### benefits of integrating Jenkins and Jira:
+-	Allows you to have automated issue updates based on build status.
+-	Reduces the manual work.
+-	Eliminates the chances of human error and unnecessary builds.
+-	Helps the Jira and the team members to be up to date on what builds were done successfully without checking it in Jenkins.
+-	Allows you to have a clear understanding of what’s next on the agenda with limited efforts.

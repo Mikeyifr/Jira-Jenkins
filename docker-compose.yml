@@ -1,0 +1,29 @@
+networks:
+  vnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.1.0.0/28
+
+services:
+
+  jenkins:
+    image: jenkins/jenkins
+    networks:
+      vnet:
+        ipv4_address: 10.1.0.2
+    ports: 
+      - 8081:8080
+    
+
+  jira:
+    image: atlassian/jira-software:latest
+    networks:
+      vnet:
+        ipv4_address: 10.1.0.4
+    ports: 
+      - 8082:8080
+
+
+
