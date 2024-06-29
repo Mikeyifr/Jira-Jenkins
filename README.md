@@ -38,11 +38,11 @@
 8.	Write Jira as the name and http://jira:8080 as the URL.
 9.	Choose Credentials as the login type, and select the credenitals you entered earlier.
 10.	 Press on "Test Connection" and verify it returns "Success".
-<div align="center"><img src="/images/site.png" alt="site" width="780" height="398"></div>
+<div align="center"><img src="/Images/site.png" alt="site" width="780" height="398"></div>
 
 11.	 Scroll up and find the "Global properties" and check the “Environment variables” box and press add.
 12.	 Fill out "JIRA_SITE" as the name and the site name you chose earlier, in this case Jira, as the value.
-<div align="center"><img src="/images/var.png" alt="var" width="785" height="162"></div>
+<div align="center"><img src="/Images/var.png" alt="var" width="785" height="162"></div>
 
 13.	 Press save and you’re Done!
 
@@ -52,7 +52,7 @@
 2.	Create an issue in the project.
 3.	Check the Transition ID for the transition between To do and Done.
 4.	Create a Jenkins pipeline and call it by the issue key:
-<div align="center"><img src="/images/1.png" alt="site" width="230" height="73"><img src="/images/2.png" alt="site" width="242" height="73"></div>
+<div align="center"><img src="/Images/1.png" alt="site" width="230" height="73"><img src="/Images/2.png" alt="site" width="242" height="73"></div>
 
 5.	Copy the contents of the Jenkinsfile file and change the id to your project's TransitionID.
 6.	Press save, and then press on Build Now.
