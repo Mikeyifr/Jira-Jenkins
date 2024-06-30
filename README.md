@@ -3,7 +3,7 @@
 -	Allows you to have automated issue updates based on build status.
 -	Reduces the manual work.
 -	Eliminates the chances of human error and unnecessary builds.
--	Helps the team members to be up to date on what builds were done successfully without checking it in Jenkins.
+-	Helps the team members to be up to date on what build results without checking it in Jenkins.
 -	Allows you to have a clear understanding of what’s next on the agenda.
 -   Allows you to trace what build is linked to what issue and route you to that build with a click of a button.
 
