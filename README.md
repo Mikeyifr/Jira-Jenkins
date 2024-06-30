@@ -95,8 +95,13 @@ Optional testing - build failure:
 ### *p: problem | s: solution*
 1.  p: I did not know what is the best approach to take at first, so I started with creating a pipeline that moves the issue to the Done
     column but I was missing the comment.
+
     s: I decided to go with a freestyle project and add everything as post-build actions.
+    
 2.  p: Using the post-build actions went well at first, but when I tried to test it on a failed build, and the issue still moved.
+
     s: I searched and downloaded various pluging that I found on the internet and found the Flexible Publish plugin that I used to create a condition.
+
 3.  p: The Flexible Publish plugin didnt show the step I needed.
-    s: I searched for different ways to add the step, including a plugin other than the flexible publish plugin until I found out on StackOverflow that there is a plugin that gives other plugins the ability to use all the build steps, so I used the Any Build Step plugin to make the Flexible Publish plugin have more options for the step including the step I needed.
+
+    s: I searched for different ways to add the step, including a plugin other than the flexible publish plugin until I found out on StackOverflow that there is a plugin that gives other plugins the ability to use all the build steps, so I used the Any Build Step           plugin to make the Flexible Publish plugin have more options for the step including the step I needed.
