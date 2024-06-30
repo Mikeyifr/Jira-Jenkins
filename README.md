@@ -1,3 +1,13 @@
+## Research and Preparation:
+### benefits of integrating Jenkins and Jira:
+-	Allows you to have automated issue updates based on build status.
+-	Reduces the manual work.
+-	Eliminates the chances of human error and unnecessary builds.
+-	Helps the team members to be up to date on what builds were done successfully without checking it in Jenkins.
+-	Allows you to have a clear understanding of what’s next on the agenda.
+-   Allows you to trace what build is linked to what issue and route you to that build with a click of a button.
+
+
 ## A step-by-step guide on Jira-Jenkins Integration
 
 ### Setting up:
@@ -22,49 +32,71 @@
 
 
 ### Jenkins setup: *switch the [container_name] with the Jenkins container name*
-1.	Docker exec [container_name] cat/var/jenkins_home/secrets/initialAdminPassword on your terminal to the get Jenkins password, paste it and press Continue.
+1.	Run - Docker exec [container_name] cat /var/jenkins_home/secrets/initialAdminPassword - on your terminal to the get Jenkins password,
+    paste it and press Continue.
 2.	press install suggested plugins and wait for in to finish.
 3.	Fill out your information and press save and continue.
 4.	Check that the URL is correct and press continue.
 5.	Press Start using Jenkins.
-4. Making the connection:
-1.	Press on "Manage Jenkins" and then press on "Plugins".
-2.	Press on "Available plugins", then type in "JIRA Pipeline Steps" and install it.
-3.	Go back to the manage Jenkins window and press on Credentials.
-4.	Press on "(global)" and then press on "Add Credentials".
-5.	Leave the type as "Username and Password" and fill them up as well as the ID and Description, and press create.
-6.	Go back to the manage Jenkins window and press on system.
-7.	Scroll down until you find the "JIRA Steps" part and press "Add Site".
-8.	Write Jira as the name and http://jira:8080 as the URL.
-9.	Choose Credentials as the login type, and select the credenitals you entered earlier.
-10.	 Press on "Test Connection" and verify it returns "Success".
-<div align="center"><img src="/Images/site.png" alt="site" width="780" height="398"></div>
-
-11.	 Scroll up and find the "Global properties" and check the “Environment variables” box and press add.
-12.	 Fill out "JIRA_SITE" as the name and the site name you chose earlier, in this case Jira, as the value.
-<div align="center"><img src="/Images/var.png" alt="var" width="785" height="162"></div>
-
-13.	 Press save and you’re Done!
+6. Making the connection:
+7.	Press on "Manage Jenkins" and then press on "Plugins".
+8.	Press on "Available plugins", then type in and install the following plugins:
+    -   Jira
+    -   Any Build Step
+    -   Flexible Publish
+9.	Go back to the manage Jenkins window and press on Credentials.
+10.	Press on "(global)" and then press on "Add Credentials".
+11.	Leave the type as "Username and Password" and fill them up as well as the ID and Description, and press create.
+12.	Go back to the manage Jenkins window and press on system.
+13. Scroll down a-bit until you see the "Flexible publish" part and change the "Allowed build steps" to "Any build step".
+    <div align="center"><img src="/Images/publish.png" alt="flexible publish"></div>
+14.	Scroll down again until you find the "Jira" part and press "Add".
+15.	Write http://jira:8080/ as the URL.
+    <div align="center"><img src="/Images/URL.png" alt="Jira URL"></div>
+16. Check the ""Update Relevant Jira Issues For All Build Results" box.
+17.	Choose your Credentials in the Credentials drop-down box.
+    <div align="center"><img src="/Images/checkbox&cred.png" alt="checkbox&cred"></div>
+18. Leave everything else as the default.
+19.	Press on "Validate Settings" and verify it returns "Success".
+    <div align="center"><img src="/Images/save&validate.png" alt="checkbox&cred"></div>
+20.	 Press save and you’re Done!
 
 
 ### Testing:
 1.	Create a new Jira project.
 2.	Create an issue in the project.
-3.	Check the Transition ID for the transition between To do and Done.
-4.	Create a Jenkins pipeline and call it by the issue key:
-<div align="center"><img src="/Images/1.png" alt="site" width="230" height="73"><img src="/Images/2.png" alt="site" width="242" height="73"></div>
-
-5.	Copy the contents of the Jenkinsfile file and change the id to your project's TransitionID.
+3.	Create a Jira board and add a sprint with issues to the board.
+4.	Create a freestyle Jenkins project.
+5.	Make sure that you have a Jira site at the start of the page that shows the Url.
+6.  We're going to add two Post-build Action.
+    -   Jira: Update relevant issues, change the "Issue selector" to Explicit and type your issue-key.
+    <div align="center"><img src="/Images/comment.png" alt="Jira: Update relevant issues"></div>
+    -   Flexible publish, on the "Run?" box choose "Current build status" and leave the Statuses on "Success"
+        On the Flexible publish box under the action section press Add, and Choose "Jira: Progress issues by workflow action"
+        in the JQL Query type issueKey="[your issue-key]" and in the Workflow Action type Done.
+    <div align="center"><img src="/Images/together.png" alt="workflow"></div>
 6.	Press save, and then press on Build Now.
 7.	Check that the build was successful, if so, continue to the next step.
-8.	Refresh the Jira page and confirm the issue switched to "Done".
+8.	Confirm the issue switched to "Done" and that a comment that says SUCCESS with a link was added to the issue.
+Optional testing - build failure:
+9.  Add an "Execute shell" build step and write gibberish.
+10. Press save, and then press on Build Now.
+11. Confirm that the build has failed, if so, continue to the next step.
+12. Confirm the issue stayed in the "To Do" column and that a comment that says FAILURE with a link was added to the issue.
 
 
 
-## Research and Preparation:
-### benefits of integrating Jenkins and Jira:
--	Allows you to have automated issue updates based on build status.
--	Reduces the manual work.
--	Eliminates the chances of human error and unnecessary builds.
--	Helps the Jira and the team members to be up to date on what builds were done successfully without checking it in Jenkins.
--	Allows you to have a clear understanding of what’s next on the agenda with limited efforts.
+## Testing process and results Report:
+
+
+
+
+## Challenges:
+### *p: problem | s: solution*
+1.  p: I did not know what is the best approach to take at first, so I started with creating a pipeline that moves the issue to the Done
+    column but I was missing the comment.
+    s: I decided to go with a freestyle project and add everything as post-build actions.
+2.  p: Using the post-build actions went well at first, but when I tried to test it on a failed build, and the issue still moved.
+    s: I searched and downloaded various pluging that I found on the internet and found the Flexible Publish plugin that I used to create a condition.
+3.  p: The Flexible Publish plugin didnt show the step I needed.
+    s: I searched for different ways to add the step, including a plugin other than the flexible publish plugin until I found out on StackOverflow that there is a plugin that gives other plugins the ability to use all the build steps, so I used the Any Build Step plugin to make the Flexible Publish plugin have more options for the step including the step I needed.
