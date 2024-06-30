@@ -78,16 +78,11 @@
 6.	Press save, and then press on Build Now.
 7.	Check that the build was successful, if so, continue to the next step.
 8.	Confirm the issue switched to "Done" and that a comment that says SUCCESS with a link was added to the issue.
-Optional testing - build failure:
+### Optional testing - build failure:
 9.  Add an "Execute shell" build step and write gibberish.
 10. Press save, and then press on Build Now.
 11. Confirm that the build has failed, if so, continue to the next step.
 12. Confirm the issue stayed in the "To Do" column and that a comment that says FAILURE with a link was added to the issue.
-
-
-
-## Testing process and results Report:
-
 
 
 
